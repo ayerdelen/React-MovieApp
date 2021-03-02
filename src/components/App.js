@@ -1,6 +1,6 @@
 import React from "react";
-import SearchBar from "./SearchBar";
 import MovieList from "./MovieList";
+import SearchBar from "./SearchBar";
 
 class App extends React.Component {
   state = {
@@ -53,6 +53,15 @@ class App extends React.Component {
     ],
   };
 
+  deleteMovie = (movie) => {
+    const newMovieList = this.state.movies.filter((m) => m.id !== movie.id);
+    console.log(newMovieList);
+
+    this.setState((state) => ({
+      movies: newMovieList,
+    }));
+  };
+
   render() {
     return (
       <div className="container">
@@ -61,7 +70,10 @@ class App extends React.Component {
             <SearchBar />
           </div>
         </div>
-        <MovieList />
+        <MovieList
+          movies={this.state.movies}
+          deleteMovieProp={this.deleteMovie}
+        />
       </div>
     );
   }
