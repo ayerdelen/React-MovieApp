@@ -1,9 +1,6 @@
 import React from "react";
 
 class SearchBar extends React.Component {
-  state = {
-    searchQuery: "",
-  };
   handleFormSubmit = (event) => {
     event.preventDefault();
   };
@@ -17,9 +14,7 @@ class SearchBar extends React.Component {
               type="text"
               className="form-control"
               placeholder="Search a movie"
-              onChange={(event) =>
-                this.setState({ searchQuery: event.target.value })
-              }
+              onChange={this.props.searchMovieProp}
             />
           </div>
         </div>

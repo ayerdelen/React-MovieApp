@@ -51,6 +51,7 @@ class App extends React.Component {
         id: 13,
       },
     ],
+    searchQuery: "",
   };
 
   deleteMovie = (movie) => {
@@ -62,18 +63,26 @@ class App extends React.Component {
     }));
   };
 
+  searchMovie = (event) => {
+    this.setState({ searchQuery: event.target.value });
+  };
+
   render() {
+    let filteredMovies = this.state.movies.filter((movie) => {
+      return (
+        movie.name
+          .toLowerCase()
+          .indexOf(this.state.searchQuery.toLocaleLowerCase()) !== -1
+      );
+    });
     return (
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <SearchBar />
+            <SearchBar searchMovieProp={this.searchMovie} />
           </div>
         </div>
-        <MovieList
-          movies={this.state.movies}
-          deleteMovieProp={this.deleteMovie}
-        />
+        <MovieList movies={filteredMovies} deleteMovieProp={this.deleteMovie} />
       </div>
     );
   }
